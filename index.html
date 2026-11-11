@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHECKPOINT — Prototype</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">C</span><span>CHECKPOINT</span></div>
+      <div class="top-note">STRATEGY PROTOTYPE</div>
+    </header>
+
+    <section class="layout">
+      <div class="board-wrap">
+        <div class="board-label"><span>JOUW KANT</span><span id="turn-label">JOUW BEURT</span></div>
+        <div id="board" class="board" role="grid" aria-label="Speelbord"></div>
+        <div class="board-footer"><span>WIT: BESCHERMER</span><span id="move-count">ZET 1</span><span>ZWART: PREDATORS</span></div>
+      </div>
+
+      <aside class="side-panel">
+        <div class="panel-section">
+          <div class="eyebrow">NIEUW SPEL</div>
+          <h1>Bescherm de stukken.</h1>
+          <p class="intro">Schakel de predators uit met je koning. Je andere stukken kunnen niet terugslaan.</p>
+          <div class="difficulty-label">MOEILIJKHEID</div>
+          <div class="difficulty-buttons">
+            <button class="difficulty active" data-level="easy"><strong>Easy</strong><span>5 predators</span></button>
+            <button class="difficulty" data-level="medium"><strong>Medium</strong><span>8 predators</span></button>
+            <button class="difficulty" data-level="hard"><strong>Hard</strong><span>16 predators</span></button>
+          </div>
+          <button id="new-game" class="primary">Nieuw spel</button>
+        </div>
+
+        <div class="panel-section status-section">
+          <div class="eyebrow">SPELSTATUS</div>
+          <div class="stat-row"><span>Predators over</span><strong id="pred-count">5</strong></div>
+          <div class="stat-row"><span>Witte stukken over</span><strong id="white-count">16</strong></div>
+          <div class="stat-row"><span>Geslagen predators</span><strong id="captured-count">0</strong></div>
+          <div id="status-message" class="status-message">Selecteer een wit stuk om te beginnen.</div>
+        </div>
+
+        <div class="panel-section legend">
+          <div class="eyebrow">REGELS</div>
+          <p><b>Witte stukken:</b> bewegen volgens hun normale schaakbewegingen. Alleen de koning kan predators slaan.</p>
+          <p><b>Predators:</b> bewegen als koninginnen. Als een predator een wit stuk kan slaan, moet hij dat doen.</p>
+          <p><b>Doel:</b> schakel alle predators uit. Als je koning schaakmat staat, verlies je.</p>
+        </div>
+      </aside>
+    </section>
+    <footer>Prototype 0.1 · Een strategisch spel over bescherming en hulp inschakelen</footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
