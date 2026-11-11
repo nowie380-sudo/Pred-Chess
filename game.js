@@ -126,19 +126,25 @@ function applyMove(from,to){
   return true;
 }
 function cloneBoard(b){return b.map(row=>row.map(p=>p?{...p}:null))}
-function legalWhiteMoves(r,c){
-  const p=pieceAt(r,c);if(!p||p.side!=="white")return [];
-  const candidates=pseudoMoves(r,c);
-  return candidates.filter(([nr,nc])=>{
-    if(p.type!=="K"&&board[nr][nc])return false;
-    const old=cloneBoard(board);
-    const oldCaptured=capturedPredators;
-    applyMove([r,c],[nr,nc]);
-    const safe=!isKingInCheck();
-    board=old;
-    capturedPredators=oldCaptured;
-    return safe;
-  });
+function legalWhiteMoves(r, c) {
+    const p = pieceAt(r, c);
+
+    if (!p || p.side !== "white") return [];
+
+    return pseudoMoves(r, c).filter(([nr, nc]) => {
+        const target = board[nr][nc];
+
+        // Only the king can capture predators
+        if (
+            p.type !== "K" &&
+            target &&
+            target.side === "black"
+        ) {
+            return false;
+        }
+
+        return true;
+    });
 }
 function allWhiteLegalMoves(){
   const moves=[];
@@ -261,7 +267,24 @@ function render(){
     if(c===0){const coord=document.createElement("span");coord.className="coord";coord.textContent=8-r;sq.appendChild(coord);}
     if(r===7){const coord=document.createElement("span");coord.className="coord";coord.style.left="auto";coord.style.top="auto";coord.style.right="4px";coord.style.bottom="2px";coord.textContent=String.fromCharCode(97+c);sq.appendChild(coord);}
     const p=board[r][c];
-    if(p){const piece=document.createElement("span");piece.className=`piece ${p.side} ${p.type==="X"?"predator":""}`;piece.textContent=GLYPHS[p.type];sq.appendChild(piece);}
+    if (p) {
+    if (p.type === "X") {
+        const piece = document.createElement("img");
+
+        piece.src = "pred.jpg";
+        piece.className = "piece predator-image";
+        piece.alt = "Predator";
+
+        sq.appendChild(piece);
+    } else {
+        const piece = document.createElement("span");
+
+        piece.className = `piece ${p.side}`;
+        piece.textContent = GLYPHS[p.type];
+
+        sq.appendChild(piece);
+    }
+}
     sq.addEventListener("click",()=>onSquareClick(r,c));boardEl.appendChild(sq);
   }
   predCountEl.textContent=countPieces("black","X");
