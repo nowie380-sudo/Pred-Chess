@@ -183,15 +183,28 @@ function predatorMoves(){
 function countPieces(side,type=null){
   let n=0;for(const row of board)for(const p of row)if(p&&p.side===side&&(!type||p.type===type))n++;return n;
 }
-function finishIfNeeded(){
-  if(countPieces("black","X")===0){gameOver=true;turnLabel.textContent="GEWONNEN";setStatus("Gewonnen! Alle predators zijn uitgeschakeld.");return true;}
-  const moves=allWhiteLegalMoves();
-  if(moves.length===0){
-    gameOver=true;
-    if(isKingInCheck()){turnLabel.textContent="SCHAAKMAT";setStatus("Schaakmat. Je koning heeft geen veilige zet meer.");}
-    else{turnLabel.textContent="PAT";setStatus("Pat: er zijn geen veilige zetten meer. Probeer een nieuw spel.");}
-    return true;
-  }
+function finishIfNeeded() {
+    // Victory: all predators eliminated
+    if (countPieces("black", "X") === 0) {
+        gameOver = true;
+        turnLabel.textContent = "GEWONNEN";
+        setStatus("Gewonnen! Alle predators zijn uitgeschakeld.");
+        return true;
+    }
+
+    // Defeat: only the king remains
+    if (
+        countPieces("white") === 1 &&
+        countPieces("white", "K") === 1
+    ) {
+        gameOver = true;
+        turnLabel.textContent = "VERLOREN";
+        setStatus("Verloren. Al je andere stukken zijn geslagen.");
+        return true;
+    }
+
+    return false;
+}
   return false;
 }
 function setStatus(msg){statusEl.textContent=msg}
