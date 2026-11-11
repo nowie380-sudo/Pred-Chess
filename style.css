@@ -43,3 +43,12 @@ h1{font:700 25px 'Space Grotesk',sans-serif;margin:9px 0 7px;letter-spacing:-.7p
 footer{text-align:center;color:#768188;font-size:10px;padding:25px 0 0}
 @media(max-width:900px){.layout{grid-template-columns:minmax(300px,620px);gap:18px}.side-panel{display:grid;grid-template-columns:1fr 1fr}.panel-section{border-right:1px solid #394147}.panel-section:last-child{grid-column:1/-1}.app{padding:16px}}
 @media(max-width:560px){.app{padding:12px}.layout{grid-template-columns:minmax(0,1fr)}.side-panel{display:block}.panel-section{border-right:0}.board{border-width:5px}.piece{font-size:clamp(25px,9vw,44px)}.top-note{font-size:8px}}
+
+.piece.predator-image {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 2px #0005);
+}
